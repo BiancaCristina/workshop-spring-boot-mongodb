@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.ufu.facom.workshopmongo.domain.Post;
 import br.ufu.facom.workshopmongo.domain.User;
 import br.ufu.facom.workshopmongo.dto.UserDTO;
 import br.ufu.facom.workshopmongo.services.UserService;
@@ -68,5 +69,13 @@ public class UserResource {
 		obj = service.update(obj);
 		
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/{id}/posts",method=RequestMethod.GET)
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+		User obj = service.findById(id);
+		
+		// Esse ResponseEntity eh pra encapsular quando recebe resposta http
+		return ResponseEntity.ok().body(obj.getPosts()); // "ok" indica que a requisicao http foi um sucesso
 	}
  }
