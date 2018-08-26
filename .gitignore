@@ -9,15 +9,12 @@
 .settings
 .springBeans
 .sts4-cache
-/src/main/resources
-/target/classes/application.properties
 
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
-*.properties
 
 ### NetBeans ###
 /nbproject/private/
@@ -26,3 +23,10 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### Editadas por mim###
+/src/main/resources 
+/target/classes/application.properties
+*.properties
+### Fim das linhas que foram adicionadas por mim ###
+### Lembrar de refazer esses arquivos caso clone o repositorio ###
