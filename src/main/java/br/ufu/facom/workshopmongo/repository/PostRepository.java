@@ -1,5 +1,6 @@
 package br.ufu.facom.workshopmongo.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -20,5 +21,12 @@ public interface PostRepository extends MongoRepository<Post, String>{
 	// options = "i" ignora letra maiuscula e minuscula
 	@Query("{ 'title': { $regex: ?0, $options: 'i' } }")
 	List<Post> searchTitle (String text);
+	// Fim do metodo
+	
+	// O metodo abaixo pesquisa uma string tanto no titulo, no post ou nos comentarios e em um intervalo de tempo definido
+	// O query indica que vai procurar nas opcoes: ( > date.min) && (< date.max) && (pertence ao texto OR body OR comments.text)
+	// gte = maior que, lte = menor que
+	@Query("{ $and: [ { date: {$gte: ?1} }, { date: { $lte: ?2} } , { $or: [ { 'title': { $regex: ?0, $options: 'i' } }, { 'body': { $regex: ?0, $options: 'i' } }, { 'comments.text': { $regex: ?0, $options: 'i' } } ] } ] }")
+	List<Post> fullSearch(String text, Date minDate, Date maxDate);
 	// Fim do metodo
 }
