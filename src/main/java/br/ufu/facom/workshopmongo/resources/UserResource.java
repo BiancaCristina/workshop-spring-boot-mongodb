@@ -1,6 +1,7 @@
 package br.ufu.facom.workshopmongo.resources;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufu.facom.workshopmongo.domain.User;
+import br.ufu.facom.workshopmongo.dto.UserDTO;
 import br.ufu.facom.workshopmongo.services.UserService;
 
 @RestController
@@ -19,10 +21,11 @@ public class UserResource {
 	private UserService service; 
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<User>> findAll() {
+	public ResponseEntity<List<UserDTO>> findAll() {
 		List<User> list = service.findAll();
+		List<UserDTO> listDTO = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
 		
 		// Esse ResponseEntity eh pra encapsular quando recebe resposta http
-		return ResponseEntity.ok().body(list); // "ok" indica que a requisicao http foi um sucesso
+		return ResponseEntity.ok().body(listDTO); // "ok" indica que a requisicao http foi um sucesso
 	}
  }
