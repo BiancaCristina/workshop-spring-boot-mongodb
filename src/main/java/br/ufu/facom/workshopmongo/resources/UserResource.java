@@ -60,4 +60,13 @@ public class UserResource {
 		// Esse ResponseEntity eh pra encapsular quando recebe resposta http
 		return ResponseEntity.noContent().build(); // Retorna uma resposta vazia
 	}
+	
+	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody UserDTO objDTO, @PathVariable String id) {
+		User obj = service.fromDTO(objDTO);
+		obj.setId(id);
+		obj = service.update(obj);
+		
+		return ResponseEntity.noContent().build();
+	}
  }

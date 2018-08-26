@@ -36,6 +36,18 @@ public class UserService {
 		repo.deleteById(id);
 	}
 	
+	public User update(User obj) {
+		User newObj = findById(obj.getId()); // Procura o usuario com o ID do parametro
+		updateData(newObj, obj); // Chama a funcao dessa classe que realiza o update
+		return repo.save(newObj); // Salva o newObj no banco de dados (alterando)
+	}
+
+	private void updateData(User newObj, User obj) {
+		// Esse metodo povoa o "newObj" e povoa ele com o obj que foi passado como parametro no metodo "update" 
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
+	}
+	
 	public User fromDTO(UserDTO objDTO) {
 		return new User(objDTO.getId(),objDTO.getName(),objDTO.getEmail());
 	}
