@@ -52,4 +52,12 @@ public class UserResource {
 		
 		return ResponseEntity.created(uri).build(); // Retorna a URI do novo user na resposta http
 	}
+	
+	@RequestMapping(value="/{id}",method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable String id) {
+		service.delete(id);
+		
+		// Esse ResponseEntity eh pra encapsular quando recebe resposta http
+		return ResponseEntity.noContent().build(); // Retorna uma resposta vazia
+	}
  }
